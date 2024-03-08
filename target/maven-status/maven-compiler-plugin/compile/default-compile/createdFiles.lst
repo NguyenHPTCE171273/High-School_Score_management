@@ -1,0 +1,16 @@
+Controllers\ManagementController.class
+Model\parents.class
+DAOs\ParentsDAO.class
+Model\student.class
+Model\teacher.class
+Controllers\ChangePassController.class
+Controllers\HomeController.class
+DAOs\AdministratorDAO.class
+Model\administrator.class
+DAOs\StudentDAO.class
+Controllers\AddScore.class
+DAOs\LoginDAO.class
+Model\StudentScoreModel.class
+Model\SubjectModel.class
+DB\DBConnection.class
+DAOs\TeacherDAO.class
