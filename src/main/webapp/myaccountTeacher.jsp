@@ -91,8 +91,8 @@
             teacher ra = dDAO.getInfoteacher(phone_number);
             while (rs.next()) {
         %>
-        <h1 class="h1"><%= ra.getName()%> Of  Information</h1>
-        <form action="/StudentManagement/" method="post">
+        <h1 class="h1"><%= ra.getName()%> of  Information</h1>
+        <form action="/Management/" method="post">
             <label for="pro_id">ID:</label><br>
             <input id="pro_id" type="number" name="teacherID" value="<%= rs.getInt(1)%>" readonly=""/>
 

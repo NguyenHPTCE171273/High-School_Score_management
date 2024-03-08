@@ -67,37 +67,26 @@ public class AddScore extends HttpServlet {
         String path = request.getRequestURI();
         HttpSession session = request.getSession();
         
-        String phone_number = "";
+        String phoneNumber = "";
         Cookie[] list = request.getCookies();
         if (list != null) {
             for (Cookie c : list) {
                 if (c.getName().equals("Teacher")) {
-                    phone_number = c.getValue();
+                    phoneNumber = c.getValue();
                     break;
                 }
             }
         }
         
-        if (!phone_number.equals("")) {
+        if (!phoneNumber.equals("")) {
             
             if (path.endsWith("AddScore")) {
+//                sua
                 session.setAttribute("isAccess", "true");
+//                
                 request.getRequestDispatcher("/addScore.jsp").forward(request, response);
             } else if (path.endsWith("/reportScore")) {
-//            gia cookie
-                Cookie cookie = new Cookie("teacher", "0942368977");
-                cookie.setMaxAge(60 * 5);
-                response.addCookie(cookie);
 //            
-                Cookie[] cList = request.getCookies();
-                String phoneNumber = "";
-                for (Cookie c : cList) {
-                    if (c.getName().equals("teacher")) {
-                        phoneNumber = c.getValue();
-                        break;
-                    }
-                }
-                
                 if (!phoneNumber.equals("")) {
                     TeacherDAO tDAO = new TeacherDAO();
                     ResultSet rs = tDAO.getHomeroomByPhoneNumber(phoneNumber);
@@ -122,9 +111,15 @@ public class AddScore extends HttpServlet {
                     session.setAttribute("homeroom", "false");
                 }
                 request.getRequestDispatcher("/reportScore.jsp").forward(request, response);
+            }else if(path.endsWith("/updateConduct")){
+                String student_id = request.getParameter("id");
+                String conduct = request.getParameter("conduct");
+                
+                TeacherDAO tDAO = new TeacherDAO();
+                
             }
         } else {
-            response.sendRedirect("/StudentManagement/LoginPage");
+            response.sendRedirect("/Management/LoginPage");
         }
     }
 
@@ -199,7 +194,7 @@ public class AddScore extends HttpServlet {
                         String scoreSemester = request.getParameter(student_id + " scoreSemester");
                         Float gpa = Float.parseFloat(request.getParameter(student_id + " gpa"));
                         
-                        tDAO.updateScoreById(student_id, scoreMouth, scoreShortExam, scoreMidSemester, scoreSemester, gpa);
+                        tDAO.updateScoreById(student_id, subject_id, scoreMouth, scoreShortExam, scoreMidSemester, scoreSemester, gpa);
                     }
                 }
             } catch (SQLException ex) {

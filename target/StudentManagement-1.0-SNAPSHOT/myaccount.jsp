@@ -98,8 +98,8 @@
 
             while (rs.next()) {
         %>
-        <h2>Information Of <%= ra.getName()%></h2>
-        <form action="/StudentManagement" method="POST">
+        <h2>Information of <%= ra.getName()%></h2>
+        <form action="/Management" method="POST">
             <label for="value1">Phone_Number:</label><br>
             <input type="text" id="value1" name="phone_number" value="<%= rs.getString(1)%>"><br>
 

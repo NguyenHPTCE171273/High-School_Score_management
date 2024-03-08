@@ -77,10 +77,10 @@
 
 
         <form action="/ChangePassController" method="post" onsubmit="return validate()">
-            <!--            <div>
-                            <label for="new_password">Old Password:</label>
-                            <input type="password" id="old_password" name="old_password" value="" required>
-                        </div>-->
+            <div>
+                <label for="new_password">Old Password:</label>
+                <input type="password" id="old_password" name="old_password" value="" required>
+            </div>
             <div>
                 <label for="new_password">New Password:</label>
                 <input type="password" id="new_password" name="new_password" required>
@@ -90,26 +90,17 @@
                 <input type="password" id="confirm_password" name="confirm_password" required>
             </div>
             <button type="submit" name="btn_submit" value="submit">Change Password</button>
-            <%
-                String samePass = (String) request.getSession().getAttribute("samepass");
-                if (samePass != null) {
-            %>
-            <small>           <%= samePass%>    </small>
-            <%
-                    request.getSession().removeAttribute("samepass");
-                }
-            %>
         </form>
         <script>
             function validate() {
-                //   var oldPassword = document.getElementById("old_password").value;
+                var oldPassword = document.getElementById("old_password").value;
                 var newPassword = document.getElementById("new_password").value;
                 var confirmPassword = document.getElementById("confirm_password").value;
-//                if (oldPassword === newPassword) {
-//                    // Mật khẩu cũ giống với mật khẩu mới
-//                    alert("Mật khẩu mới không được giống với mật khẩu cũ. Vui lòng chọn mật khẩu khác.");
-//                    return false;
-//                } 
+                if (oldPassword === newPassword) {
+                    // Mật khẩu cũ giống với mật khẩu mới
+                    alert("Mật khẩu mới không được giống với mật khẩu cũ. Vui lòng chọn mật khẩu khác.");
+                    return false;
+                }
                 else if (newPassword === confirmPassword) {
                     // Hai mật khẩu khớp nhau
                     alert("Update thành công");
