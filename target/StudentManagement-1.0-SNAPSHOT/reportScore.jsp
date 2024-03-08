@@ -16,6 +16,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
         <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
         <script>
@@ -82,21 +83,23 @@
                         }
                     }
                 }
-                
+
                 TeacherDAO ad = new TeacherDAO();
                 teacher adc = ad.getInfoteacher(phone_number);
-                
+
             %>
             <!-- Menu -->
             <nav class="navbar navbar-expand-lg navbar-light" >
                 <div class="container-fluid justify-content-between">
-                    <img
-                        class="navbar-brand"
-                        id="logo"
-                        src="<%= request.getContextPath()%>/imgs/logo_small.jpg"
-                        alt="Hame Logo"
-                        style="width: 60px; border-radius: 15%"
-                        />
+                    <a href="/Management/TeacherHomePage">
+                        <img
+                            class="navbar-brand"
+                            id="logo"
+                            src="<%= request.getContextPath()%>/imgs/logo_small.jpg"
+                            alt="Hame Logo"
+                            style="width: 60px; border-radius: 15%"
+                            />
+                    </a>
                     <button
                         type="button"
                         class="navbar-toggler"
@@ -198,9 +201,10 @@
                     <th>Phone Number</th>
                     <th>Fullname</th>
                     <th>Birthday</th>
-                        <%                            while (rsSubject.next()) {
+                        <%                            
+                            while (rsSubject.next()) {
                         %>
-                    <th><%=rsSubject.getString("name")%></th>
+                                <th><%=rsSubject.getString("name")%></th>
                         <%
                             }
                         %>
@@ -236,10 +240,7 @@
                             }
                             if (studentScore != null) {
                                 scores.add(studentScore);
-
-
                     %>
-
                     <td><%=(i == 9) ? (studentScore.getGpa() >= 5 ? "Đ" : "CĐ") : studentScore.getGpa()%></td>
                     <%
                     } else {
@@ -303,19 +304,24 @@
                     <td>Yeu</td>
                     <%
                         }
-                    %>
 
+                        int student_id = rsStudent.getInt("id");
+
+                        String conduct = tDAO.getConduct(student_id);
+//                        while(rsConduct.next()){
+//                            conduct = rsConduct.getString("conduct");
+//                        }
+%>
                     <td>
-                        <select>
+                        <select id="<%=student_id %>" name="<%=rsStudent.getInt("id") + " conduct"%>">
                             <option value="value">Select</option>
-                            <option>Tot</option>
-                            <option>Kha</option>
-                            <option>Trung binh</option>
-
+                            <option value="T" <%= conduct.equals("T") ? "selected" : ""%> >Tot</option>
+                            <option value="K" <%= conduct == "K"? "selected" : ""%> >Kha</option>
+                            <option value="TB" <%= conduct == "YB"? "selected" : ""%> >Trung binh</option>
+                            <option value="Y" <%= conduct == "Y"? "selected" : ""%> >Yeu</option>
                         </select>
                     </td>
                     <td>cell</td>
-
                 </tr>
                 <%
                     }
@@ -331,6 +337,27 @@
         <%
             }
         %>
-
+        
+        
+        
+        <script>
+            
+            function updateConduct(student_id) {
+                const conduct = document.getElementById(student_id).value;
+                
+                $.ajax({
+                    type: "GET",
+                    url: "/AddScore/updateConduct",
+                    data: {
+                        id: student_id,
+                        conduct: conduct
+                    },
+                    success: function (result) {
+                        
+                        alert(student_id);
+                    }
+                });
+            }
+        </script>
     </body>
 </html>

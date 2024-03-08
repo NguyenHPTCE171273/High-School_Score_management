@@ -101,9 +101,9 @@
 
             while (rs.next()) {
         %>
-        <h2 class="h2-parent">Information Of <%= ra.getName()%> </h2>        
+        <h2 class="h2-parent">Information of <%= ra.getName()%> </h2>        
 
-        <form action="/StudentManagement/" method="POST">
+        <form action="/Management/" method="POST">
             <label for="pro_id">ID:</label><br>
             <input id="pro_id" type="number" name="parentID" value="<%= rs.getInt(1)%>" readonly=""/>
 
@@ -122,7 +122,7 @@
         </form>
 
         <h2 class="h2-student">Student  </h2>
-        <form action="/StudentManagement/" method="POST">
+        <form action="/Management/" method="POST">
             <label for="pro_id">ID:</label><br>
             <input id="pro_id" type="number" name="teacherID" value="<%= rs.getInt(7)%>" readonly=""/>
 

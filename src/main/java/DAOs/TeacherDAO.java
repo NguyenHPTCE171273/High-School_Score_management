@@ -281,9 +281,9 @@ public class TeacherDAO {
         return rs != null ? rs : null;
     }
 
-    public void updateScoreById(int student_id, String scoreMouth, String scoreShortExam, String scoreMidSemester, String scoreSemester, float gpa) {
+    public void updateScoreById(int student_id, int subject_id, String scoreMouth, String scoreShortExam, String scoreMidSemester, String scoreSemester, float gpa) {
         try {
-            PreparedStatement ps = conn.prepareStatement("update score set scoreMouth=?, scoreShortExam=?, scoreMidSemester=?, scoreSemester=?, gpa =? where student_id=?");
+            PreparedStatement ps = conn.prepareStatement("update score set scoreMouth=?, scoreShortExam=?, scoreMidSemester=?, scoreSemester=?, gpa =? where student_id=? and subject_id =?");
             if (scoreMouth.equals("")) {
                 ps.setNull(1, java.sql.Types.FLOAT);
             } else {
@@ -309,8 +309,9 @@ public class TeacherDAO {
             }
 
             ps.setFloat(5, gpa);
-            ps.setFloat(6, student_id);
-
+            ps.setInt(6, student_id);
+            ps.setInt(7, subject_id);
+            
             ps.executeUpdate();
 
         } catch (SQLException ex) {
@@ -334,6 +335,39 @@ public class TeacherDAO {
         }
 
         return rs;
+    }
+    
+    public String getConduct(int student_id){
+        ResultSet rs = null;
+        String result = "";
+        try {
+            PreparedStatement ps = conn.prepareStatement("select distinct conduct from studying where student_id = ?");
+            ps.setInt(1, student_id);
+            rs = ps.executeQuery();
+            
+            while(rs.next()){
+                result = rs.getString("conduct");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TeacherDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return result;
+    }
+    
+    public void updateConduct(String conduct, int student_id, String class_id){
+        int count = 0;
+        try {
+            PreparedStatement ps = conn.prepareStatement("UPDATE studying SET conduct = ? WHERE student_id = ? and class_id = ?");
+            ps.setString(1, conduct);
+            ps.setInt(2, student_id);
+            ps.setString(3, class_id);
+
+            count = ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AdministratorDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
 }

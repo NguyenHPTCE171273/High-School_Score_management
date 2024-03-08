@@ -41,7 +41,7 @@
                 <div class="login-container">
                     <!-- <img src="logo.png" alt="School Logo" /> -->
                     <h2>Educational Institution</h2>
-                    <form method="post" action="/StudentManagement" >
+                    <form method="post" action="/Management" >
                         <div class="input-group">
                             <select
                                 for="username"
@@ -73,7 +73,7 @@
                             String err = (String) session.getAttribute("loginfail");
                          
                             if ("1".equals(err)) {
-                                out.print("<h3 style=\"color: red; \" >login unsuccessful</h3>");
+                                out.print("<h3 style=\"color: red; \" >Login fail</h3>");
                             }
                                session.removeAttribute("loginfail");
                                

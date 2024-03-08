@@ -92,17 +92,17 @@
                                 >
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a class="dropdown-item" href="/StudentManagement/AccountPage"
+                                        <a class="dropdown-item" href="/Management/AccountPage"
                                            >My account</a
                                         >
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="/StudentManagement/ChangpassPage"
+                                        <a class="dropdown-item" href="/Management/ChangpassPage"
                                            >Change Password</a
                                         >
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="/StudentManagement/AdministratorSignOut"
+                                        <a class="dropdown-item" href="/Management/AdministratorSignOut"
                                            >Sign out</a
                                         >
                                     </li>

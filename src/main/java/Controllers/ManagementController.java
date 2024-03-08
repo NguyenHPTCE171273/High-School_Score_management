@@ -65,6 +65,7 @@ public class ManagementController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
+    @SuppressWarnings("empty-statement")
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String path = request.getRequestURI(); // Get the URL
@@ -75,15 +76,14 @@ public class ManagementController extends HttpServlet {
         if (list != null) {
             for (Cookie c : list) {
                 String name = c.getName();
-                if (name.equals("Teacher") || c.getName().equals("Administrator") ||
-                    c.getName().equals("Parents") || c.getName().equals("Student")) {
+                if (name.equals("Teacher") || name.equals("Administrator")
+                        || name.equals("Parents") || name.equals("Student")) {
                     phone_number = c.getValue();
                     break;
-                }else {
-                    name = "";
                 }
             }
         }
+
         if (!phone_number.equals("")) {
 
             if (path.endsWith("/AdministratorHomePage")) { //Login for Customer
@@ -96,6 +96,7 @@ public class ManagementController extends HttpServlet {
                 request.getRequestDispatcher("/student_homePage.jsp").forward(request, response);
             } else if (path.endsWith("/ChangpassPage")) {
                 request.getRequestDispatcher("/changePass.jsp").forward(request, response);
+
             } else if (path.endsWith("/AccountPage")) {
                 request.getRequestDispatcher("/myaccount.jsp").forward(request, response);
             } else if (path.endsWith("/AccountParentsPage")) {
@@ -118,7 +119,7 @@ public class ManagementController extends HttpServlet {
                         break; //thoat khoi vong lap
                     }
                 }
-                request.getRequestDispatcher("/index.jsp").forward(request, response);
+                response.sendRedirect("/");
             } else if (path.endsWith("/TeacherSignOut")) { //Login for Customer
                 Cookie[] cList;
                 cList = request.getCookies();
@@ -131,7 +132,7 @@ public class ManagementController extends HttpServlet {
                         break; //thoat khoi vong lap
                     }
                 }
-                request.getRequestDispatcher("/index.jsp").forward(request, response);
+                response.sendRedirect("/");
             } else if (path.endsWith("/ParentsSignOut")) { //Login for Customer
                 Cookie[] cList;
                 cList = request.getCookies();
@@ -144,7 +145,7 @@ public class ManagementController extends HttpServlet {
                         break; //thoat khoi vong lap
                     }
                 }
-                request.getRequestDispatcher("/index.jsp").forward(request, response);
+                response.sendRedirect("/");
             } else if (path.endsWith("/StudentSignOut")) { //Login for Customer
                 Cookie[] cList;
                 cList = request.getCookies();
@@ -157,13 +158,12 @@ public class ManagementController extends HttpServlet {
                         break; //thoat khoi vong lap
                     }
                 }
-                request.getRequestDispatcher("/index.jsp").forward(request, response);
+                response.sendRedirect("/");
             }
-        } else if (path.endsWith("/StudentManagement/LoginPage")) {
-            request.getRequestDispatcher("/index.jsp").forward(request, response);
+        } else if (path.endsWith("/Management/LoginPage")) {
+            response.sendRedirect("/");
         } else {
-            request.getRequestDispatcher("/StudentManagement/LoginPage").forward(request, response);
-
+            response.sendRedirect("/");
         };
     }
 
@@ -189,50 +189,54 @@ public class ManagementController extends HttpServlet {
                 AdministratorDAO aDAO = new AdministratorDAO();
                 if (aDAO.existAccount(phone_number, password)) {
                     Cookie c = new Cookie("Administrator", phone_number);
-                    c.setMaxAge(3 * 24 * 60 * 60); //Thiet lap han su dung 3 ngay
+                    c.setMaxAge(5 * 60 * 60); //Thiet lap han su dung 3 ngay
                     response.addCookie(c);//Day cookie xuong may duong dung (client)
-                    response.sendRedirect("/StudentManagement/AdministratorHomePage");
+                    response.sendRedirect("/Management/AdministratorHomePage");
                 } else {
                     HttpSession session = request.getSession();
                     session.setAttribute("loginfail", "1");
-                    response.sendRedirect("/StudentManagement/LoginPage");
+                    response.sendRedirect("/");
                 }
             } else if (role.equals("Teacher")) {
                 TeacherDAO tDAO = new TeacherDAO();
                 if (tDAO.existAccount(phone_number, password)) {
                     Cookie c = new Cookie("Teacher", phone_number);
-                    c.setMaxAge(3 * 24 * 60 * 60); //Thiet lap han su dung 3 ngay
+                    c.setMaxAge(5 * 60 * 60); //Thiet lap han su dung 3 ngay
                     response.addCookie(c);//Day cookie xuong may duong dung (client)
-                    response.sendRedirect("/StudentManagement/TeacherHomePage");
+                    response.sendRedirect("/Management/TeacherHomePage");
                 } else {
                     HttpSession session = request.getSession();
                     session.setAttribute("loginfail", "1");
-                    response.sendRedirect("/StudentManagement/LoginPage");
+                    response.sendRedirect("/");
                 }
             } else if (role.equals("Parents")) {
                 ParentsDAO pDAO = new ParentsDAO();
                 if (pDAO.existAccount(phone_number, password)) {
                     Cookie c = new Cookie("Parents", phone_number);
-                    c.setMaxAge(3 * 24 * 60 * 60); //Thiet lap han su dung 3 ngay
+                    c.setMaxAge(5 * 60 * 60); //Thiet lap han su dung 3 ngay
                     response.addCookie(c);//Day cookie xuong may duong dung (client)
-                    response.sendRedirect("/StudentManagement/ParentsHomePage");
+                    response.sendRedirect("/Management/ParentsHomePage");
                 } else {
                     HttpSession session = request.getSession();
                     session.setAttribute("loginfail", "1");
-                    response.sendRedirect("/StudentManagement/LoginPage");
+                    response.sendRedirect("/");
                 }
             } else if (role.equals("Student")) {
                 StudentDAO sDAO = new StudentDAO();
                 if (sDAO.existAccount(phone_number, password)) {
                     Cookie c = new Cookie("Student", phone_number);
-                    c.setMaxAge(3 * 24 * 60 * 60); //Thiet lap han su dung 3 ngay
+                    c.setMaxAge(5 * 60 * 60); //Thiet lap han su dung 3 ngay
                     response.addCookie(c);//Day cookie xuong may duong dung (client)
-                    response.sendRedirect("/StudentManagement/StudentHomePage");
+                    response.sendRedirect("/Management/StudentHomePage");
                 } else {
                     HttpSession session = request.getSession();
                     session.setAttribute("loginfail", "1");
-                    response.sendRedirect("/StudentManagement/LoginPage");
+                    response.sendRedirect("/");
                 }
+            } else {
+                HttpSession session = request.getSession();
+                session.setAttribute("loginfail", "1");
+                response.sendRedirect("/");
             }
         } else if (request.getParameter("submit_saveAdmin") != null) {
             String phone = request.getParameter("phone_number");
@@ -248,9 +252,9 @@ public class ManagementController extends HttpServlet {
                 administrator thongTinCu = adao.getInfo(phone);
                 HttpSession sesstion = request.getSession();
                 sesstion.setAttribute("order", thongTinCu);
-                response.sendRedirect("/StudentManagement/AccountPage");
+                response.sendRedirect("/Management/AccountPage");
             } else {
-                response.sendRedirect("/StudentManagement/AdministratorHomePage");
+                response.sendRedirect("/Management/AdministratorHomePage");
             }
 
         } else if (request.getParameter("submit_saveTeacher") != null) {
@@ -269,9 +273,9 @@ public class ManagementController extends HttpServlet {
                 teacher thongTinCu = TDAO.getInfoteacher(phone);
                 HttpSession sesstion = request.getSession();
                 sesstion.setAttribute("order", thongTinCu);
-                response.sendRedirect("/StudentManagement/AccountTeacherPage");
+                response.sendRedirect("/Management/AccountTeacherPage");
             } else {
-                response.sendRedirect("/StudentManagement/TeacherHomePage");
+                response.sendRedirect("/Management/TeacherHomePage");
             }
 
         } else if (request.getParameter("submit_saveParent") != null) {
@@ -287,9 +291,9 @@ public class ManagementController extends HttpServlet {
                 parents thongTinCu = PDAO.getInfoparent(phone);
                 HttpSession sesstion = request.getSession();
                 sesstion.setAttribute("order", thongTinCu);
-                response.sendRedirect("/StudentManagement/AccountParentsPage");
+                response.sendRedirect("/Management/AccountParentsPage");
             } else {
-                response.sendRedirect("/StudentManagement/ParentsHomePage");
+                response.sendRedirect("/Management/ParentsHomePage");
             }
 
         } else if (request.getParameter("submit_saveStudent") != null) {
@@ -308,9 +312,9 @@ public class ManagementController extends HttpServlet {
                 student thongTinCu = SDAO.getInfostudent(phone);
                 HttpSession sesstion = request.getSession();
                 sesstion.setAttribute("order", thongTinCu);
-                response.sendRedirect("/StudentManagement/AccountParentsPage");
+                response.sendRedirect("/Management/AccountParentsPage");
             } else {
-                response.sendRedirect("/StudentManagement/ParentsHomePage");
+                response.sendRedirect("/Management/ParentsHomePage");
             }
 
         }

@@ -14,7 +14,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>ManagementController</servlet-name>
-        <url-pattern>/StudentManagement/*</url-pattern>
+        <url-pattern>/Management/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ChangePassController</servlet-name>
@@ -33,6 +33,8 @@
         <servlet-name>AddScore</servlet-name>
         <url-pattern>/AddScore/*</url-pattern>
     </servlet-mapping>
+    
+    
     <session-config>
         <session-timeout>
             30

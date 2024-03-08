@@ -68,7 +68,7 @@
                 student ra = dDAO.getInfostudent(phone_number);
                 while (rs.next()) {
             %>
-            <h2>Information Of <%= ra.getName()%></h2>
+            <h2>Information of <%= ra.getName()%></h2>
 
             <tr>
                 <td>Email</td>

@@ -83,12 +83,14 @@
                     }
                 }
             }
+            
             TeacherDAO ad = new TeacherDAO();
             teacher adc = ad.getInfoteacher(phone_number);
         %>
         <!-- Menu -->
         <nav class="navbar navbar-expand-lg navbar-light" >
             <div class="container-fluid justify-content-between">
+                <a href="/Management/TeacherHomePage">
                 <img
                     class="navbar-brand"
                     id="logo"
@@ -96,6 +98,7 @@
                     alt="Hame Logo"
                     style="width: 60px; border-radius: 15%"
                     />
+                </a>
                 <button
                     type="button"
                     class="navbar-toggler"
@@ -139,7 +142,7 @@
             </div>
         </nav>
     </header>
-    <h1>Mark Book</h1>
+    <h2>Mark Book</h2>
     <%
         String isAccess = (String) session.getAttribute("isAccess");
         String isPower = (String) session.getAttribute("isPower");
@@ -250,7 +253,7 @@
                     <th>Mark Mid Semester</th>
                     <th>Mark Semester</th>
                     <th>Mark GPA</th>
-
+                    <th></th>
                 </tr>
             </thead>
 
@@ -270,6 +273,13 @@
                     <td> <input type="number" min="0" max="10" step="0.1" name="<%=student_id + " scoreMidSemester"%>" value="<%=rsStudent.getString("scoreMidSemester") != null ? rsStudent.getFloat("scoreMidSemester") : ""%>"> </td>                            
                     <td> <input type="number" min="0" max="10" step="0.1" name="<%=student_id + " scoreSemester"%>" value="<%=rsStudent.getString("scoreSemester") != null ? rsStudent.getFloat("scoreSemester") : ""%>"> </td>
                     <td> <input type="number" name="<%=student_id + " gpa"%>" value="<%=(float) (Math.round(gpa * 10)) / 10%>" readonly=""> </td>
+                    <td>
+                        <select>
+                            <option value="value"  >text</option>
+                            <option value="value" <%=student_id == 6? "selected": "" %>>text2</option>
+
+                        </select>
+                    </td>
                 </tr>
                 <%
                     }

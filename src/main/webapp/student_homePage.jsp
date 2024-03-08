@@ -4,6 +4,7 @@
     Author     : Admin
 --%>
 
+<%@page import="DAOs.StudentDAO"%>
 <%@page import="Model.student"%>
 <%@page import="DAOs.AdministratorDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -53,7 +54,7 @@
                         }
                     }
                 }
-                AdministratorDAO ad = new AdministratorDAO();
+                StudentDAO ad = new StudentDAO();
                 student adc = ad.getInfostudent(phone_number);
             %>
             <!-- Menu -->
@@ -95,17 +96,17 @@
                                 >
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a class="dropdown-item" href="/StudentManagement/AccountStudentPage"
+                                        <a class="dropdown-item" href="/Management/AccountStudentPage"
                                            >My account</a
                                         >
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="/StudentManagement/ChangpassPage"
+                                        <a class="dropdown-item" href="/Management/ChangpassPage"
                                            >Change Password</a
                                         >
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="/StudentManagement/StudentSignOut"
+                                        <a class="dropdown-item" href="/Management/StudentSignOut"
                                            >Sign out</a
                                         >
                                     </li>
