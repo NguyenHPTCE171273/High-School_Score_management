@@ -4,15 +4,13 @@
     Author     : Admin
 --%>
 
-<%@page import="Model.administrator"%>
-<%@page import="DAOs.AdministratorDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
+        <title>Home</title>
         <link
             rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -29,47 +27,38 @@
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
             crossorigin="anonymous"
         ></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+        <style>
+            #school-name {
+                font-family: "Lobster", sans-serif;
+                font-weight: 400;
+                font-style: normal;
+            }
+        </style>
     </head>
-    <style>
-        .nav-link {
-            color: white;
-        }
+    <body>
+        <header class="container-fluid">
+            <div class="d-flex row">
+                <div class="col-sm-2">
+                    <a href="#"><img
+                            class="navbar-brand"
+                            id="logo"
+                            src="<%= request.getContextPath()%>/imgs/logo_small.png"
+                            alt="Hame Logo"
+                            width="200px"
+                            /></a>
+                </div>
 
-        .nav-link:hover {
-            text-decoration: underline;
-            color: white;
-        }
-    </style>
-    <body style="background-color: #003a5f">
+                <div id="school-name" class="col-sm-10 d-flex align-items-center ">
+                    <h1 class="text-center" style="color: #003a5f; width: 100%">Welcome to ABC High School</h1>
+                </div>
+            </div>
 
-
-
-
-        <header>
-            <%
-                String phone_number = "";
-                Cookie[] cList = request.getCookies();
-                if (cList != null) {
-                    for (Cookie c : cList) {
-                        if (c.getName().equals("Administrator")) {
-                            phone_number = c.getValue();
-                            break;
-                        }
-                    }
-                }
-                AdministratorDAO ad = new AdministratorDAO();
-                administrator adc = ad.getInfo(phone_number);
-            %>
             <!-- Menu -->
-            <nav class="navbar navbar-expand-lg navbar-light" >
+            <nav class="navbar navbar-expand-lg navbar-light bg-light" >
                 <div class="container-fluid justify-content-between">
-                    <img
-                        class="navbar-brand"
-                        id="logo"
-                        src="<%= request.getContextPath()%>/imgs/logo_small.jpg"
-                        alt="Hame Logo"
-                        style="width: 60px; border-radius: 15%"
-                        />
                     <button
                         type="button"
                         class="navbar-toggler"
@@ -81,67 +70,49 @@
                     <div
                         class="collapse navbar-collapse justify-content-between"
                         id="navbarCollapse"
-                        >                        
-                        <ul class="navbar-nav">
-                            <li class="nav-item dropdown">
-                                <a
-                                    class="nav-link dropdown-toggle"
-                                    data-bs-toggle="dropdown"
-                                    href=""
-                                    >     Hello  <%= adc.getName()%>    </a
-                                >
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a class="dropdown-item" href="/Management/AccountPage"
-                                           >My account</a
-                                        >
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="/Management/ChangpassPage"
-                                           >Change Password</a
-                                        >
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="/Management/AdministratorSignOut"
-                                           >Sign out</a
-                                        >
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
+                        >
+                        <p style="margin: 0">Hello, </p>                        
+                        <div class="navbar-nav">
+                            <a href="" class="nav-item nav-link">My account</a>
+                            <a href="" class="nav-item nav-link">Change Password</a>
+                            <a href="" class="nav-item nav-link">Sign out</a>
+                        </div>
                     </div>
                 </div>
             </nav>
         </header>
 
-
-
         <main class="container">
             <div class="row mt-5">
-                <div class="col-sm-12 col-md-6 col-lg-3 text-center">
-                    <img src="<%= request.getContextPath()%>/imgs/1492531743-icon-sets-school-outline-hand-drawn-iconfinder02_83203.png" width="200px" >
-                    <p class="text-light">List of teachers</p>
-                </div>
-                <div class="col-sm-12 col-md-6 col-lg-3 text-center">
-                    <img src="<%= request.getContextPath()%>/imgs/icons8-reading-100.png" width="200px" >
-                    <p class="text-light">List of students</p>
-                </div>
-                <div class="col-sm-12 col-md-6 col-lg-3 text-center">
-                    <img src="<%= request.getContextPath()%>/imgs/icons8-door-100.png" width="200px" >
-                    <p class="text-light">List of classes</p>
-                </div>
-                <div class="col-sm-12 col-md-6 col-lg-3 text-center">
-                    <img src="<%= request.getContextPath()%>/imgs/icons8-unit-100.png" width="200px" >
-                    <p class="text-light">List of departments</p>
-                </div>
+                <a style="text-decoration: none" class="col-sm-12 col-md-6 col-lg-3 text-center" href="/admin/teacher-management">
+                    <img src="<%= request.getContextPath()%>/imgs/teacher.png" width="200px" >
+                    <p style="color: #003a5f">Teacher Management</p>
+                </a>
+                <a style="text-decoration: none" class="col-sm-12 col-md-6 col-lg-3 text-center" href="/admin/student-look-up">
+                    <img src="<%= request.getContextPath()%>/imgs/student.png" width="200px" >
+                    <p style="color: #003a5f">List of students</p>
+                </a>
+                <a style="text-decoration: none" class="col-sm-12 col-md-6 col-lg-3 text-center" href="/admin/class-management">
+                    <img src="<%= request.getContextPath()%>/imgs/class.png" width="200px" >
+                    <p style="color: #003a5f">Classes Management</p>
+                </a>
+                <a style="text-decoration: none" class="col-sm-12 col-md-6 col-lg-3 text-center" href="">
+                    <img src="<%= request.getContextPath()%>/imgs/department.png" width="200px" >
+                    <p style="color: #003a5f">List of departments</p>
+                </a>
             </div>
             <div class="row mt-5">
-                <div class="col-sm-12 text-center">
-                    <img src="<%= request.getContextPath()%>/imgs/icons8-book-100.png" width="200px" >
-                    <p class="text-light">List of subjects</p>
-                </div>
+                <a href="/admin/subject-management" style="text-decoration: none" class="col-sm-12 col-md-6 col-lg-3 text-center" >
+                    <img src="<%= request.getContextPath()%>/imgs/subject.png" width="200px" >
+                    <p style="color: #003a5f">List of subjects</p>
+                </a> 
+                    <a href="/admin/statistical" style="text-decoration: none" class="col-sm-12 col-md-6 col-lg-3 text-center" >
+                    <img src="<%= request.getContextPath()%>/imgs/subject.png" width="200px" >
+                    <p style="color: #003a5f">Statistical</p>
+                </a>
             </div>
-        </main>
+     
 
+        </main>
     </body>
 </html>
